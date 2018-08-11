@@ -7,6 +7,32 @@
     @time: 2017/8/23 10:53
 """
 
+"""
+程序功能：制作离线安装包的过程中，下载某个rpm包依赖的其他rpm包
+
+
+比如要制作docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm的离线包：
+1. 在系统上执行yum install docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm -y
+2. 待rpm包安装成功后，将此rpm包的依赖包如下：
+Dependency Installed:
+  audit-libs-python.x86_64 0:2.8.1-3.el7         checkpolicy.x86_64 0:2.5-6.el7                     container-selinux.noarch 2:2.66-1.el7         libcgroup.x86_64 0:0.41-15.el7           
+  libseccomp.x86_64 0:2.3.1-3.el7                libsemanage-python.x86_64 0:2.5-11.el7             libtool-ltdl.x86_64 0:2.4.2-22.el7_3          lz4.x86_64 0:1.7.5-2.el7                 
+  pigz.x86_64 0:2.3.3-1.el7.centos               policycoreutils-python.x86_64 0:2.5-22.el7         python-IPy.noarch 0:0.75-6.el7                setools-libs.x86_64 0:3.3.8-2.el7        
+Updated:
+  systemd.x86_64 0:219-57.el7                                                                                                                                                                
+Dependency Updated:
+  audit.x86_64 0:2.8.1-3.el7                 audit-libs.x86_64 0:2.8.1-3.el7                 libgudev1.x86_64 0:219-57.el7                            libselinux.x86_64 0:2.5-12.el7       
+  libselinux-python.x86_64 0:2.5-12.el7      libselinux-utils.x86_64 0:2.5-12.el7            libsemanage.x86_64 0:2.5-11.el7                          libsepol.x86_64 0:2.5-8.1.el7        
+  policycoreutils.x86_64 0:2.5-22.el7        selinux-policy.noarch 0:3.13.1-192.el7_5.4      selinux-policy-targeted.noarch 0:3.13.1-192.el7_5.4      systemd-libs.x86_64 0:219-57.el7     
+  systemd-sysv.x86_64 0:219-57.el7
+拷贝至某个文件中，假设为docker-ce
+
+3. 按要求执行程序
+4. docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm依赖包会被下载至docker-cedir目录中
+
+注：程序要求操作系统提供 yumdownloader 工具
+"""
+
 import subprocess
 import os
 import sys
